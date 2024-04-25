@@ -1,0 +1,14 @@
+流程：
+1.打开对应的HOST
+2.编辑对应的环境Environment设置是208还是209
+3.在京东客服系统抓取headers的cookie放在txt记得前后加单引号
+4.下单并获取订单号放在order里
+5.点击bat文件即可操作
+
+注：
+Environment：208/209环境编辑
+Shopname：店铺名称 string类型 【单引号，如果写双引号记得读取的时候修改截取方法】
+searchId：searchId string类型 【单引号，如果写双引号记得读取的时候修改截取方法】
+Cookie： 在京东客服系统抓取headers的cookie记得前后加单引号 【单引号，如果写双引号记得读取的时候修改截取方法】
+Order：订单编号 list类型
+一般修改只编辑COOKIE和新增orderid
