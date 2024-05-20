@@ -48,8 +48,8 @@ class update_jd_orders:
         self.cookie = data.split("cookie = '")[1].split("'\n")[0]
         self.searchId = data.split("searchId = '")[1].split("'\n")[0]
         self.jd_token = data.split("jd_token = '")[1].split("'\n")[0]
-        print(self.cookie)
-        print(self.jd_token)
+        # print(self.cookie)
+        # print(self.jd_token)
         #print( self.db_info, self.shop_name, self.cookie, self.day, self.searchId, self.jd_token)
         return self.db_info, self.shop_name, self.cookie, self.day, self.searchId, self.jd_token
     def get_ordersId(self):
@@ -165,6 +165,7 @@ class update_jd_orders:
             209: [{'host': '192.168.16.201', 'port': 3307, 'user': 'root', 'passwd': '123456qqq','db': 'jd_push_01', 'charset': 'utf8mb4'},
                   {'host': '192.168.16.201', 'port': 3307, 'user': 'root', 'passwd': '123456qqq','db': 'qnjy_cluster_01', 'charset': 'utf8mb4'}]
         }
+        not_lits =[]
         for key,values in db_info.items():
             if self.db_info == key:
                 db_data = values[0]
@@ -180,12 +181,14 @@ class update_jd_orders:
                 print('********************************************************************\n首次操作会同步所有的订单')
                 for i in sql_txt:
                     self.conn.execute(i[0])
-                    print('已经同步{}条数据\n查询是否同步成功'.format(count+1))
+                    # print('{}条数据\n查询是否同步成功'.format(count+1))
                     try:
                         print('{}'.format(i[1]))
                         self.conn.execute(i[1])
                         result = self.conn.fetchall()
-                        count+=1
+                        if result:
+                            pass
+                            count+=1
                         num = 10
                         if not result:
                             for t in range(num):
@@ -201,6 +204,7 @@ class update_jd_orders:
 
                 self.conn.close()
                 print('流程结束关闭数据库')
+                print('同步不成功的订单为：{}'.format(not_lits))
 
 
 if __name__ == '__main__':
